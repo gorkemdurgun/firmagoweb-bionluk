@@ -10,7 +10,7 @@ import {
   PiNumberCircleOne as TemporaryNeedIcon,
 } from "react-icons/pi";
 
-import { MdVerified as VerifiedIcon } from "react-icons/md";
+import { MdVerified as VerifiedIcon, MdArrowBack as BlogLeftArrowIcon, MdArrowForward as BlogRightArrowIcon } from "react-icons/md";
 
 const dummyServices = [
   {
@@ -221,13 +221,72 @@ const dummyMatters = [
   "Farklı sektörlerden işletmelerle çalışın, en uygun fiyatları alın ve karşılaştırın.",
 ];
 
+const dummyBlogs = [
+  {
+    image:
+      "https://plus.unsplash.com/premium_photo-1670871853702-ad91bbc2a3ea?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG1hc3RlcnxlbnwwfHwwfHx8MA%3D%3D",
+    prefix: "Building",
+    title: "How to find carpenter for your house",
+  },
+  {
+    image:
+      "https://plus.unsplash.com/premium_photo-1683309565422-77818a287060?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjF8fGRldnxlbnwwfHwwfHx8MA%3D%3D",
+    prefix: "Web Development",
+    title: "How to create a website with Next.js",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1601902572612-3c850fab3ad8?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    prefix: "Photography",
+    title: "How to take a perfect photo with camera",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    prefix: "Law Services",
+    title: "How to find a good lawyer for your case",
+  },
+  {
+    image:
+      "https://plus.unsplash.com/premium_photo-1677087121940-8ec58a497a38?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fGFnZW5jeXxlbnwwfHwwfHx8MA%3D%3D",
+    prefix: "Casting",
+    title: "How to find a good casting agency",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1597207077833-9cfdb90c9fb8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzF8fHJlY29yZGluZ3xlbnwwfHwwfHx8MA%3D%3D",
+    prefix: "Recording",
+    title: "How to record a perfect song",
+  },
+  {
+    image:
+      "https://plus.unsplash.com/premium_photo-1661335257817-4552acab9656?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZW5naW5lZXJ8ZW58MHx8MHx8fDA%3D",
+    prefix: "Engineering",
+    title: "How to find a good engineer for your project",
+  },
+];
+
 export default function Home() {
   const serviceSearchRef = useRef(null);
+  const blogRef = useRef(null);
 
   const [searchService, setSearchService] = useState("");
 
+  function onScrollBlog(direction: "left" | "right") {
+    if (direction === "left") {
+      // @ts-ignore
+      blogRef.current.scrollLeft -= 400;
+    } else {
+      // @ts-ignore
+      blogRef.current.scrollLeft += 400;
+    }
+  }
+
   return (
-    <section className="flex flex-col items-center justify-center gap-12 py-8 md:py-10 ">
+    <section
+      className="flex flex-col items-center justify-center gap-12 py-8
+     md:py-10 "
+    >
       {/* Launch Section */}
       <Card className="grid grid-cols-[3fr,2fr] w-full gap-8 p-6 rounded-xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-indigo-900 md:px-8 py-16">
         <div className="flex flex-col items-start justify-center gap-0">
@@ -332,6 +391,38 @@ export default function Home() {
         </div>
       </Card>
       {/* Blogs Section */}
+      <div className="relative flex flex-col w-full align-center justify-center gap-8 py-8  md:py-10">
+        <span className="flex items-center justify-start gap-4 text-4xl font-bold text-gray-900 pl-8">
+          <span className="text-3xl text-body uppercase text-gray-900">BLOG</span>
+          <ArrowRightIcon className="text-gray-900 w-8 h-8" />
+        </span>
+        <Button className="absolute top-[55%] left-0 transform -translate-y-1/2 bg-gray-900 z-10" onClick={() => onScrollBlog("left")}>
+          <BlogLeftArrowIcon className="text-white w-8 h-8" />
+        </Button>
+        <Button className="absolute top-[55%] right-0 transform -translate-y-1/2 bg-gray-900 z-10" onClick={() => onScrollBlog("right")}>
+          <BlogRightArrowIcon className="text-white w-8 h-8" />
+        </Button>
+        <div className="relative flex overflow-x-scroll scrollbar-hide scroll-smooth px-8 max-w-[98%]" ref={blogRef}>
+          <div className="flex flex-nowrap gap-4">
+            {dummyBlogs.map((blog, index) => (
+              <div key={index} className="inline-block">
+                <div
+                  className="w-[280px] h-96 max-w-xs overflow-hidden rounded-xl shadow-md bg-white hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-95"
+                  style={{
+                    backgroundSize: "cover",
+                    backgroundImage: `url(${blog.image})`,
+                  }}
+                >
+                  <div className="flex flex-col items-start justify-start gap-4 p-4 h-full bg-gray-900/25 rounded-md p-2 h-full">
+                    <span className="text-md text-body text-gray-900 bg-white px-2 rounded-lg shadow-sm">{blog.prefix}</span>
+                    <span className="text-xl text-body text-white font-extrabold shadow-lg rounded-lg p-2">{blog.title}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
