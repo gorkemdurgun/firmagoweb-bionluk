@@ -351,7 +351,7 @@ export default function Home() {
           {dummyNeeds.map((need, index) => (
             <Card
               key={index}
-              className="cursor-pointer grid grid-rows-2 justify-start min-h-[120px] p-4 rounded-xl hover:scale-105 hover:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-600/5 from-65% via-white to-white"
+              className="cursor-pointer grid grid-rows-2 justify-start min-h-[120px] p-4 rounded-xl hover:scale-105 hover:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-400/10 from-55% via-white to-white"
             >
               <TemporaryNeedIcon className="text-4xl text-gray-600 -ml-2 pb-2 border-b-1" />
               <span className="text-body text-lg font-bold text-gray-600">{need}</span>
