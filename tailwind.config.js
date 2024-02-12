@@ -1,6 +1,9 @@
 import { nextui } from "@nextui-org/theme";
 
 /** @type {import('tailwindcss').Config} */
+
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -12,6 +15,32 @@ module.exports = {
     extend: {},
     fontFamily: {
       montserrat: ["Montserrat", "sans-serif"],
+    },
+    colors: {
+      transparent: "transparent",
+      current: "currentColor",
+      black: colors.black,
+      white: colors.white,
+      gray: colors.gray,
+      emerald: colors.emerald,
+      indigo: colors.indigo,
+      yellow: colors.yellow,
+      sky: colors.sky,
+      blue: colors.blue,
+      red: colors.red,
+      navy: {
+        50: "#E5E3FC",
+        100: "#CBC8F9",
+        200: "#9790F3",
+        300: "#6359EE",
+        400: "#2E21E8",
+        500: "#1F14BD",
+        600: "#160E86",
+        700: "#0D084D",
+        800: "#080533",
+        900: "#05031C",
+        950: "#02010E",
+      },
     },
   },
   darkMode: "class",
