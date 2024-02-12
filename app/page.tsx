@@ -361,7 +361,6 @@ export default function Home() {
 
   const [searchService, setSearchService] = useState("");
 
-  const isMobile = window.innerWidth < 768;
   const { scrollYProgress } = useScroll();
 
   function onScrollBlog(direction: "left" | "right") {
@@ -475,9 +474,9 @@ export default function Home() {
         </span>
         {/* // scrolled testimonials by scrollYProgress, half of comments in top and rightly animated, other half in bottom and leftly animated */}
         <motion.div
-          className="flex flex-row items-center justify-center gap-12"
+          className="flex flex-row items-center justify-center md:gap-12 gap-4"
           style={{
-            x: useTransform(scrollYProgress, [0, 2], [isMobile ? "-500%" : "-100%", isMobile ? "1500%" : "100%"]),
+            x: useTransform(scrollYProgress, [0, 2], ["-100%", "100%"]),
           }}
         >
           {dummyTestimonials.slice(0, 6).map((testimonial, index) => (
@@ -502,9 +501,9 @@ export default function Home() {
           ))}
         </motion.div>
         <motion.div
-          className="flex flex-row items-center justify-center gap-12"
+          className="flex flex-row items-center justify-center md:gap-12 gap-4"
           style={{
-            x: useTransform(scrollYProgress, [0, 2], [isMobile ? "500%" : "100%", isMobile ? "-1500%" : "-100%"]),
+            x: useTransform(scrollYProgress, [0, 2], ["100%", "-100%"]),
           }}
         >
           {dummyTestimonials.slice(6, 12).map((testimonial, index) => (
