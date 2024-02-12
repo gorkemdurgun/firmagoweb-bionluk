@@ -361,7 +361,7 @@ export default function Home() {
 
   const [searchService, setSearchService] = useState("");
 
-  const isMobile = window.innerWidth < 768;
+  const isMobile = (window && window.innerWidth < 768) || false;
   const { scrollYProgress } = useScroll();
 
   function onScrollBlog(direction: "left" | "right") {
