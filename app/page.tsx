@@ -2,13 +2,13 @@
 
 import { Autocomplete, AutocompleteItem, Button, Card } from "@nextui-org/react";
 import { useRef, useState } from "react";
-import { motion, useMotionValue, useTransform, animate, useScroll } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate, useScroll, useInView } from "framer-motion";
 
 import {
   PiMagnifyingGlassDuotone as SearchIcon,
   PiMapPinDuotone as LocationIcon,
   PiArrowRightLight as ArrowRightIcon,
-  PiNumberCircleOne as TemporaryNeedIcon,
+  PiXSquareDuotone as TemporaryNeedIcon,
 } from "react-icons/pi";
 
 import {
@@ -17,7 +17,6 @@ import {
   MdArrowForward as BlogRightArrowIcon,
   MdStar as StarIcon,
 } from "react-icons/md";
-import { title } from "@/components/primitives";
 
 const dummyServices = [
   {
@@ -283,73 +282,73 @@ const dummyBlogs = [
 
 const dummyTestimonials = [
   {
-    image: "https://placehold.co/150x150",
+    image: "https://placehold.co/24x24",
     name: "John Doe",
     title: "CEO of Company",
     message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
   },
   {
-    image: "https://placehold.co/150x150",
+    image: "https://placehold.co/24x24",
     name: "Jane Doe",
     title: "CEO of Company",
     message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
   },
   {
-    image: "https://placehold.co/150x150",
+    image: "https://placehold.co/24x24",
     name: "John Doe",
     title: "CEO of Company",
     message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
   },
   {
-    image: "https://placehold.co/150x150",
+    image: "https://placehold.co/24x24",
     name: "Jane Doe",
     title: "CEO of Company",
     message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
   },
   {
-    image: "https://placehold.co/150x150",
+    image: "https://placehold.co/24x24",
     name: "John Doe",
     title: "CEO of Company",
     message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
   },
   {
-    image: "https://placehold.co/150x150",
+    image: "https://placehold.co/24x24",
     name: "Jane Doe",
     title: "CEO of Company",
     message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
   },
   {
-    image: "https://placehold.co/150x150",
+    image: "https://placehold.co/24x24",
     name: "John Doe",
     title: "CEO of Company",
     message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
   },
   {
-    image: "https://placehold.co/150x150",
+    image: "https://placehold.co/24x24",
     name: "Jane Doe",
     title: "CEO of Company",
     message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
   },
   {
-    image: "https://placehold.co/150x150",
+    image: "https://placehold.co/24x24",
     name: "John Doe",
     title: "CEO of Company",
     message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
   },
   {
-    image: "https://placehold.co/150x150",
+    image: "https://placehold.co/24x24",
     name: "Jane Doe",
     title: "CEO of Company",
     message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
   },
   {
-    image: "https://placehold.co/150x150",
+    image: "https://placehold.co/24x24",
     name: "John Doe",
     title: "CEO of Company",
     message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
   },
   {
-    image: "https://placehold.co/150x150",
+    image: "https://placehold.co/24x24",
     name: "Jane Doe",
     title: "CEO of Company",
     message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
@@ -362,6 +361,7 @@ export default function Home() {
 
   const [searchService, setSearchService] = useState("");
 
+  const isMobile = window.innerWidth < 768;
   const { scrollYProgress } = useScroll();
 
   function onScrollBlog(direction: "left" | "right") {
@@ -376,17 +376,27 @@ export default function Home() {
 
   return (
     <section
-      className="flex flex-col items-center justify-center gap-12 py-8
-     md:py-10 "
+      className="flex flex-col items-center justify-center md:gap-12 gap-4
+     md:py-8 py-0"
     >
       {/* Launch Section */}
-      <Card className="grid grid-cols-[3fr,2fr] w-full gap-8 p-6 rounded-xl bg-navy-700 md:px-8 py-16">
+      <motion.div
+        className="grid w-full gap-8 rounded-xl bg-navy-700 md:px-8  md:grid-cols-[3fr,2fr] grid-cols-1 md:py-16 py-12 md:px-6 px-6"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          duration: 0.5,
+          type: "spring",
+          stiffness: 150,
+          damping: 10,
+        }}
+      >
         <div className="flex flex-col items-start justify-center gap-0">
           {/* Title and Description */}
-          <h1 className="text-4xl font-bold text-white">Binlerce firma arasından seçin!</h1>
-          <p className="text-xl font-normal text-white">Aradığın bizde yoksa hiçbir yerde yoktur</p>
+          <h1 className="font-bold text-white md:text-4xl text-xl">Binlerce firma arasından seçin!</h1>
+          <p className="font-normal text-white md:text-xl text-sm">Aradığın bizde yoksa hiçbir yerde yoktur</p>
           {/* Search Inputs */}
-          <div className="grid grid-cols-[2fr,2fr,1fr] items-center gap-4 mt-8 mb-12 w-full">
+          <div className="grid items-center gap-4 mt-8 mb-12 w-full md:grid-cols-[2fr,2fr,1fr] grid-cols-1">
             <Autocomplete
               ref={serviceSearchRef}
               className="max-w-xs"
@@ -429,47 +439,52 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="flex items-center justify-center w-full">
+        <div className="items-center justify-center w-full md:flex hidden">
           <img src="https://placehold.co/150x100" alt="NextUI" className="w-32 h-32 md:w-full md:h-full" />
         </div>
-      </Card>
+      </motion.div>
       {/* We Have Your Needs Section */}
-      <div className="flex flex-col w-full align-center justify-center gap-8 py-8 md:py-10">
-        <span className="flex items-center justify-start gap-4 text-4xl font-bold text-gray-900">
-          <span className="text-3xl text-body uppercase text-gray-900">İHTİYACIN BİZDE VAR</span>
+      <div className="flex flex-col w-full align-center justify-center md:gap-8 gap-4 md:py-10 py-8">
+        <span className="flex items-center justify-start gap-4 font-bold text-gray-900">
+          <span className="text-body uppercase text-gray-900 md:text-3xl text-xl">İHTİYACIN BİZDE VAR</span>
           <ArrowRightIcon className="text-gray-900 w-8 h-8" />
         </span>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-8">
+        <div className="grid md:gap-4 gap-2 md:grid-cols-8 grid-cols-2">
           {dummyNeeds.map((need, index) => (
-            <Card
+            <div
               key={index}
-              className="cursor-pointer grid grid-rows-2 justify-start min-h-[120px] p-4 rounded-xl hover:scale-105 hover:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-400/10 from-55% via-white to-white"
+              className="cursor-pointer grid grid-rows-2 justify-start min-h-[120px] p-4 border-2 border-gray-100 shadow-lg rounded-xl transition-all hover:scale-105 hover:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-400/10 from-55% via-white to-white"
             >
               <TemporaryNeedIcon className="text-4xl text-gray-600 -ml-2 pb-2 border-b-1" />
               <span className="text-body text-lg font-bold text-gray-600">{need}</span>
-            </Card>
+            </div>
           ))}
         </div>
-        <div className="flex flex-col items-center justify-center gap-4 mt-4">
+        <div className="flex flex-col items-center justify-center text-center gap-4 mt-4">
           <span className="text-lg text-body text-gray-900">Daha fazla ihtiyacın mı var? Hemen incele, aradığın her şeyi bul.</span>
-          <Button className="w-1/2 p-6 bg-gray-900">
+          <Button className="p-6 bg-gray-900 md:w-1/2 w-full">
             <span className="text-lg text-body text-white font-bold">Daha fazlasını keşfet</span>
           </Button>
         </div>
       </div>
       {/* Trust Our Community Section */}
-      <Card className="flex flex-col w-full align-center justify-center gap-4 p-8 md:py-10">
-        <span className="flex items-center justify-start mb-8 gap-4 text-4xl font-bold text-gray-900">
-          <span className="text-3xl text-body uppercase text-gray-900">TOPLULUĞUMUZA GÜVEN</span>
-          <VerifiedIcon className="w-12 h-12 text-navy-400 bg-navy-100 p-2 rounded-2xl" />
+      <Card className="flex flex-col w-full align-center justify-center gap-4 bg-gray-100 shadow-inner md:py-10 md:p-8 p-4 " shadow="none">
+        <span className="flex items-center mb-8 gap-4 text-4xl font-bold text-gray-900 md:justify-start justify-between">
+          <span className="text-body uppercase text-gray-900 md:text-3xl text-lg">GÜVENİLİR TOPLULUĞUMUZ</span>
+          <VerifiedIcon className="text-navy-400 bg-navy-100 p-2 rounded-full md:w-12 w-8 md:h-12 h-8" />
         </span>
         {/* // scrolled testimonials by scrollYProgress, half of comments in top and rightly animated, other half in bottom and leftly animated */}
         <motion.div
           className="flex flex-row items-center justify-center gap-12"
-          style={{ x: useTransform(scrollYProgress, [0, 2], ["-100%", "100%"]) }}
+          style={{
+            x: useTransform(scrollYProgress, [0, 2], [isMobile ? "-500%" : "-100%", isMobile ? "1500%" : "100%"]),
+          }}
         >
           {dummyTestimonials.slice(0, 6).map((testimonial, index) => (
-            <Card key={index} className="min-w-[600px] flex flex-row items-center justify-center gap-4 p-4 rounded-xl shadow-md bg-white">
+            <Card
+              key={index}
+              className=" flex flex-row items-center justify-center gap-4 p-4 rounded-xl shadow-md bg-transparent rounded-3xl border-4 border-navy-500 md:min-w-[600px] min-w-[360px]"
+            >
               <img src={testimonial.image} alt="NextUI" className="w-24 h-24 rounded-md" />
               {/* <span className="text-lg text-body font-bold text-gray-900">{testimonial.name}</span> */}
               {/* <span className="text-lg text-body font-normal text-gray-900">{testimonial.title}</span> */}
@@ -478,20 +493,25 @@ export default function Home() {
                   {Array(5)
                     .fill(0)
                     .map((_, index) => (
-                      <StarIcon key={index} className="text-2xl text-yellow-400" />
+                      <StarIcon key={index} className=" text-yellow-400 md:text-2xl text-lg" />
                     ))}
                 </span>
-                <span className="text-lg text-body font-normal text-gray-900">{testimonial.message}</span>
+                <span className="text-body font-normal text-gray-900 md:text-md text-xs">{testimonial.message}</span>
               </div>
             </Card>
           ))}
         </motion.div>
         <motion.div
           className="flex flex-row items-center justify-center gap-12"
-          style={{ x: useTransform(scrollYProgress, [0, 2], ["100%", "-100%"]) }}
+          style={{
+            x: useTransform(scrollYProgress, [0, 2], [isMobile ? "500%" : "100%", isMobile ? "-1500%" : "-100%"]),
+          }}
         >
           {dummyTestimonials.slice(6, 12).map((testimonial, index) => (
-            <Card key={index} className="min-w-[600px] flex flex-row items-center justify-center gap-4 p-4 rounded-xl shadow-md bg-white">
+            <Card
+              key={index}
+              className=" flex flex-row items-center justify-center gap-4 p-4 rounded-xl shadow-md bg-transparent rounded-3xl border-4 border-navy-500 md:min-w-[600px] min-w-[360px]"
+            >
               <img src={testimonial.image} alt="NextUI" className="w-24 h-24 rounded-md" />
               {/* <span className="text-lg text-body font-bold text-gray-900">{testimonial.name}</span> */}
               {/* <span className="text-lg text-body font-normal text-gray-900">{testimonial.title}</span> */}
@@ -500,10 +520,10 @@ export default function Home() {
                   {Array(5)
                     .fill(0)
                     .map((_, index) => (
-                      <StarIcon key={index} className="text-2xl text-yellow-400" />
+                      <StarIcon key={index} className=" text-yellow-400 md:text-2xl text-lg" />
                     ))}
                 </span>
-                <span className="text-lg text-body font-normal text-gray-900">{testimonial.message}</span>
+                <span className=" text-body font-normal text-gray-900 md:text-md text-xs">{testimonial.message}</span>
               </div>
             </Card>
           ))}
@@ -513,43 +533,51 @@ export default function Home() {
       <div></div>
       {/* For Business Section */}
       <Card className="grid grid-cols-1 p-8 gap-8 w-full bg-navy-700 md:grid-cols-2">
-        <div className="flex flex-col items-start justify-center gap-12">
-          <span className="text-body text-4xl font-medium text-white max-w-[500px]">İşletmeler için gelişmiş çözümler ve hizmetler</span>
-          <div className="flex flex-col items-start justify-start gap-4">
+        <div className="flex flex-col items-start justify-center md:gap-12 gap-8">
+          <span className="text-body font-medium text-white max-w-[500px] md:text-4xl text-2xl">
+            İşletmeler için gelişmiş çözümler ve hizmetler
+          </span>
+          <div className="flex flex-col items-start justify-start w-full gap-4">
             {dummyMatters.map((matter, index) => (
-              <span key={index} className="flex items-center justify-start gap-4 text-lg font-bold text-gray-900">
-                <VerifiedIcon className="text-4xl text-white" />
-                <span className="text-lg text-body text-white">{matter}</span>
+              <span key={index} className="grid gap-4 items-start justify-start grid-cols-[1fr,20fr] w-full">
+                <VerifiedIcon className="text-navy-100 w-8 h-8" />
+                <span className="text-body font-normal text-white md:text-lg text-sm">{matter}</span>
               </span>
             ))}
           </div>
-          <Button className="w-1/2 p-6 bg-gray-100/10">
+          <Button className=" p-6 bg-gray-100/10 md:w-1/2 w-full">
             <span className="text-lg text-body text-white font-bold">Daha fazlasını keşfet</span>
             <ArrowRightIcon className="text-white w-6 h-6" />
           </Button>
         </div>
         <div className="flex items-center justify-center w-full">
-          <img src="https://placehold.co/150x100" alt="NextUI" className="w-32 h-32 md:w-full md:h-full" />
+          <img src="https://placehold.co/150x100" alt="NextUI" className="w-full md:h-full" />
         </div>
       </Card>
       {/* Blogs Section */}
-      <div className="relative flex flex-col w-full align-center justify-center gap-8 py-8  md:py-10">
-        <span className="flex items-center justify-start gap-4 text-4xl font-bold text-gray-900 pl-8">
-          <span className="text-3xl text-body uppercase text-gray-900">BLOG</span>
+      <div className="relative flex flex-col w-full align-center justify-center gap-8 py-8 md:py-10">
+        <span className="flex items-center justify-start gap-4 text-4xl font-bold text-gray-900 md:pl-8">
+          <span className="text-body uppercase text-gray-900 md:text-3xl text-xl">BLOG</span>
           <ArrowRightIcon className="text-gray-900 w-8 h-8" />
         </span>
-        <Button className="absolute top-[55%] left-0 transform -translate-y-1/2 bg-gray-900 z-10" onClick={() => onScrollBlog("left")}>
+        <Button
+          className="absolute top-[55%] left-0 transform -translate-y-1/2 bg-gray-900 z-10 md:flex hidden"
+          onClick={() => onScrollBlog("left")}
+        >
           <BlogLeftArrowIcon className="text-white w-8 h-8" />
         </Button>
-        <Button className="absolute top-[55%] right-0 transform -translate-y-1/2 bg-gray-900 z-10" onClick={() => onScrollBlog("right")}>
+        <Button
+          className="absolute top-[55%] right-0 transform -translate-y-1/2 bg-gray-900 z-10 md:flex hidden"
+          onClick={() => onScrollBlog("right")}
+        >
           <BlogRightArrowIcon className="text-white w-8 h-8" />
         </Button>
-        <div className="relative flex overflow-x-scroll scrollbar-hide scroll-smooth px-8 max-w-[98%]" ref={blogRef}>
+        <div className="relative flex overflow-x-scroll scrollbar-hide scroll-smooth md:px-8 px-0 max-w-[98%]" ref={blogRef}>
           <div className="flex flex-nowrap gap-4">
             {dummyBlogs.map((blog, index) => (
               <div key={index} className="inline-block">
                 <div
-                  className="w-[280px] h-96 max-w-xs overflow-hidden rounded-xl shadow-md bg-white hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-95"
+                  className="cursor-pointer w-[280px] h-96 max-w-xs overflow-hidden rounded-xl shadow-md bg-white hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-95"
                   style={{
                     backgroundSize: "cover",
                     backgroundImage: `url(${blog.image})`,

@@ -170,8 +170,8 @@ export const Navbar = () => {
   );
 
   return (
-    <NextUINavbar maxWidth="2xl" position="sticky" className="border-b-2">
-      <NavbarContent className="basis-1/5 sm:basis-full max-w-8xl" justify="start">
+    <NextUINavbar maxWidth="xl" position="sticky" className="border-b-2">
+      <NavbarContent className="basis-1/5 sm:basis-full max-w-7xl" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-0" href="/">
             <Logo />

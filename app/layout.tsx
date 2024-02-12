@@ -6,6 +6,7 @@ import { Providers } from "./providers";
 import { Navbar } from "@/components/navbar";
 import { Link } from "@nextui-org/link";
 import clsx from "clsx";
+import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
   title: {
@@ -32,13 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           <div className="relative flex flex-col h-screen">
             <Navbar />
-            <main className="container mx-auto max-w-8xl pt-16 px-6 flex-grow">{children}</main>
-            <footer className="w-full flex items-center justify-center py-3">
-              <Link isExternal className="flex items-center gap-1 text-current">
-                <span className="text-default-600">Developing by</span>
-                <p className="text-primary">GODU</p>
-              </Link>
-            </footer>
+            <main className="container mx-auto max-w-7xl flex-grow md:pt-16 pt-4 md:px-6 px-4">{children}</main>
+            <Footer />
           </div>
         </Providers>
       </body>
