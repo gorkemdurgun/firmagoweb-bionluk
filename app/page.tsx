@@ -2,6 +2,7 @@
 
 import { Autocomplete, AutocompleteItem, Button, Card } from "@nextui-org/react";
 import { useRef, useState } from "react";
+import { motion, useMotionValue, useTransform, animate, useScroll } from "framer-motion";
 
 import {
   PiMagnifyingGlassDuotone as SearchIcon,
@@ -10,7 +11,13 @@ import {
   PiNumberCircleOne as TemporaryNeedIcon,
 } from "react-icons/pi";
 
-import { MdVerified as VerifiedIcon, MdArrowBack as BlogLeftArrowIcon, MdArrowForward as BlogRightArrowIcon } from "react-icons/md";
+import {
+  MdVerified as VerifiedIcon,
+  MdArrowBack as BlogLeftArrowIcon,
+  MdArrowForward as BlogRightArrowIcon,
+  MdStar as StarIcon,
+} from "react-icons/md";
+import { title } from "@/components/primitives";
 
 const dummyServices = [
   {
@@ -92,6 +99,22 @@ const dummyServices = [
   {
     id: 20,
     name: "Cloud Computing",
+  },
+  {
+    id: 21,
+    name: "SEO Auditing",
+  },
+  {
+    id: 22,
+    name: "3D Character Design",
+  },
+  {
+    id: 23,
+    name: "Wedding Photography",
+  },
+  {
+    id: 24,
+    name: "App Marketing",
   },
 ];
 
@@ -186,15 +209,7 @@ const dummyLocations = [
   },
 ];
 
-const dummyPopularSearches = [
-  "Web Development",
-  "Mobile Development",
-  "UI/UX Design",
-  "Graphic Design",
-  "Video Editing",
-  "Digital Marketing",
-  "SEO",
-];
+const dummyPopularSearches = ["Development", "SEO", "Marketing", "Design", "Photography", "Writing", "Media"];
 
 const dummyNeeds = [
   "Emlak",
@@ -266,11 +281,88 @@ const dummyBlogs = [
   },
 ];
 
+const dummyTestimonials = [
+  {
+    image: "https://placehold.co/150x150",
+    name: "John Doe",
+    title: "CEO of Company",
+    message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
+  },
+  {
+    image: "https://placehold.co/150x150",
+    name: "Jane Doe",
+    title: "CEO of Company",
+    message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
+  },
+  {
+    image: "https://placehold.co/150x150",
+    name: "John Doe",
+    title: "CEO of Company",
+    message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
+  },
+  {
+    image: "https://placehold.co/150x150",
+    name: "Jane Doe",
+    title: "CEO of Company",
+    message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
+  },
+  {
+    image: "https://placehold.co/150x150",
+    name: "John Doe",
+    title: "CEO of Company",
+    message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
+  },
+  {
+    image: "https://placehold.co/150x150",
+    name: "Jane Doe",
+    title: "CEO of Company",
+    message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
+  },
+  {
+    image: "https://placehold.co/150x150",
+    name: "John Doe",
+    title: "CEO of Company",
+    message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
+  },
+  {
+    image: "https://placehold.co/150x150",
+    name: "Jane Doe",
+    title: "CEO of Company",
+    message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
+  },
+  {
+    image: "https://placehold.co/150x150",
+    name: "John Doe",
+    title: "CEO of Company",
+    message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
+  },
+  {
+    image: "https://placehold.co/150x150",
+    name: "Jane Doe",
+    title: "CEO of Company",
+    message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
+  },
+  {
+    image: "https://placehold.co/150x150",
+    name: "John Doe",
+    title: "CEO of Company",
+    message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
+  },
+  {
+    image: "https://placehold.co/150x150",
+    name: "Jane Doe",
+    title: "CEO of Company",
+    message: "I found the best service for my company. I'm so happy with it. I recommend it to everyone.",
+  },
+];
+
 export default function Home() {
   const serviceSearchRef = useRef(null);
   const blogRef = useRef(null);
 
   const [searchService, setSearchService] = useState("");
+
+  const { scrollYProgress } = useScroll();
 
   function onScrollBlog(direction: "left" | "right") {
     if (direction === "left") {
@@ -288,13 +380,13 @@ export default function Home() {
      md:py-10 "
     >
       {/* Launch Section */}
-      <Card className="grid grid-cols-[3fr,2fr] w-full gap-8 p-6 rounded-xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-indigo-900 md:px-8 py-16">
+      <Card className="grid grid-cols-[3fr,2fr] w-full gap-8 p-6 rounded-xl bg-navy-700 md:px-8 py-16">
         <div className="flex flex-col items-start justify-center gap-0">
           {/* Title and Description */}
-          <h1 className="text-4xl font-bold text-white">Binlerce firma arasından seçin</h1>
-          <p className="text-lg font-normal text-white">Aradığın bizde yoksa hiçbir yerde yoktur!</p>
+          <h1 className="text-4xl font-bold text-white">Binlerce firma arasından seçin!</h1>
+          <p className="text-xl font-normal text-white">Aradığın bizde yoksa hiçbir yerde yoktur</p>
           {/* Search Inputs */}
-          <div className="grid grid-cols-[2fr,2fr,1fr] items-center gap-4 mt-4 mb-12">
+          <div className="grid grid-cols-[2fr,2fr,1fr] items-center gap-4 mt-8 mb-12 w-full">
             <Autocomplete
               ref={serviceSearchRef}
               className="max-w-xs"
@@ -315,8 +407,8 @@ export default function Home() {
             >
               {(location) => <AutocompleteItem key={location.id}>{location.name}</AutocompleteItem>}
             </Autocomplete>
-            <Button className="h-full p-4 bg-gray-900">
-              <span className="text-lg text-body text-white font-bold">Ara</span>
+            <Button className="h-full p-4 bg-navy-100">
+              <span className="text-lg text-body text-black font-bold">Ara</span>
             </Button>
           </div>
           {/* Popular Searches */}
@@ -325,7 +417,7 @@ export default function Home() {
             {dummyPopularSearches.map((search, index) => (
               <Button
                 key={index}
-                className="bg-indigo-100/20 border-2 border-transparent hover:scale-105 hover:border-indigo-100"
+                className="bg-navy-100/20 border-2 border-transparent hover:scale-105 hover:border-navy-100"
                 onClick={() => {
                   setSearchService(search);
                   // @ts-ignore
@@ -366,11 +458,61 @@ export default function Home() {
         </div>
       </div>
       {/* Trust Our Community Section */}
-      <div></div>
+      <Card className="flex flex-col w-full align-center justify-center gap-4 p-8 md:py-10">
+        <span className="flex items-center justify-start mb-8 gap-4 text-4xl font-bold text-gray-900">
+          <span className="text-3xl text-body uppercase text-gray-900">TOPLULUĞUMUZA GÜVEN</span>
+          <VerifiedIcon className="w-12 h-12 text-navy-400 bg-navy-100 p-2 rounded-2xl" />
+        </span>
+        {/* // scrolled testimonials by scrollYProgress, half of comments in top and rightly animated, other half in bottom and leftly animated */}
+        <motion.div
+          className="flex flex-row items-center justify-center gap-12"
+          style={{ x: useTransform(scrollYProgress, [0, 2], ["-100%", "100%"]) }}
+        >
+          {dummyTestimonials.slice(0, 6).map((testimonial, index) => (
+            <Card key={index} className="min-w-[600px] flex flex-row items-center justify-center gap-4 p-4 rounded-xl shadow-md bg-white">
+              <img src={testimonial.image} alt="NextUI" className="w-24 h-24 rounded-md" />
+              {/* <span className="text-lg text-body font-bold text-gray-900">{testimonial.name}</span> */}
+              {/* <span className="text-lg text-body font-normal text-gray-900">{testimonial.title}</span> */}
+              <div className="flex flex-col items-start justify-start gap-2">
+                <span className="flex flex-row items-center justify-start gap-0">
+                  {Array(5)
+                    .fill(0)
+                    .map((_, index) => (
+                      <StarIcon key={index} className="text-2xl text-yellow-400" />
+                    ))}
+                </span>
+                <span className="text-lg text-body font-normal text-gray-900">{testimonial.message}</span>
+              </div>
+            </Card>
+          ))}
+        </motion.div>
+        <motion.div
+          className="flex flex-row items-center justify-center gap-12"
+          style={{ x: useTransform(scrollYProgress, [0, 2], ["100%", "-100%"]) }}
+        >
+          {dummyTestimonials.slice(6, 12).map((testimonial, index) => (
+            <Card key={index} className="min-w-[600px] flex flex-row items-center justify-center gap-4 p-4 rounded-xl shadow-md bg-white">
+              <img src={testimonial.image} alt="NextUI" className="w-24 h-24 rounded-md" />
+              {/* <span className="text-lg text-body font-bold text-gray-900">{testimonial.name}</span> */}
+              {/* <span className="text-lg text-body font-normal text-gray-900">{testimonial.title}</span> */}
+              <div className="flex flex-col items-start justify-start gap-2">
+                <span className="flex flex-row items-center justify-start gap-0">
+                  {Array(5)
+                    .fill(0)
+                    .map((_, index) => (
+                      <StarIcon key={index} className="text-2xl text-yellow-400" />
+                    ))}
+                </span>
+                <span className="text-lg text-body font-normal text-gray-900">{testimonial.message}</span>
+              </div>
+            </Card>
+          ))}
+        </motion.div>
+      </Card>
       {/* Roadmap Section */}
       <div></div>
       {/* For Business Section */}
-      <Card className="grid grid-cols-1 p-8 gap-8 w-full bg-indigo-900 md:grid-cols-2">
+      <Card className="grid grid-cols-1 p-8 gap-8 w-full bg-navy-700 md:grid-cols-2">
         <div className="flex flex-col items-start justify-center gap-12">
           <span className="text-body text-4xl font-medium text-white max-w-[500px]">İşletmeler için gelişmiş çözümler ve hizmetler</span>
           <div className="flex flex-col items-start justify-start gap-4">
@@ -381,7 +523,7 @@ export default function Home() {
               </span>
             ))}
           </div>
-          <Button className="w-1/2 p-6 bg-gray-900">
+          <Button className="w-1/2 p-6 bg-gray-100/10">
             <span className="text-lg text-body text-white font-bold">Daha fazlasını keşfet</span>
             <ArrowRightIcon className="text-white w-6 h-6" />
           </Button>

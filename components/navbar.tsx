@@ -126,15 +126,15 @@ export const Navbar = () => {
     />
   );
 
-  const popoverContent = (
+  const userPopoverContent = (
     <PopoverContent className="w-[300px] p-0">
       {(titleProps) => (
         <div className="py-8 w-full">
-          <p className="px-4 text-small font-bold text-indigo-800" {...titleProps}>
+          <p className="px-4 text-small font-bold text-navy-500" {...titleProps}>
             Merhaba, Orkun
           </p>
           <p className="px-4 text-small text-default-500">orwysoftware@gmail.com</p>
-          <Divider className="bg-indigo-600 my-4" />
+          <Divider className="bg-navy-500 my-4" />
           <div className="px-4 mt-2 flex flex-col gap-0 w-full">
             {userDropdownList.map((item, index) => (
               <Button key={index} className="flex items-center justify-start gap-2 bg-transparent">
@@ -152,14 +152,14 @@ export const Navbar = () => {
     <PopoverContent className="w-[300px] p-0">
       {(titleProps) => (
         <div className="py-8 w-full">
-          <p className="px-4 text-small font-bold text-indigo-800" {...titleProps}>
+          <p className="px-4 text-small font-bold text-navy-500" {...titleProps}>
             Bildirimler
           </p>
-          <Divider className="bg-indigo-600 my-4" />
+          <Divider className="bg-navy-500 my-4" />
           <div className="flex gap-2 px-4 mt-2 flex flex-col gap-0 w-full">
             {dummyNotifications.map((item, index) => (
               <Button disableAnimation key={index} className="cursor-pointer flex items-center justify-start p-0 gap-2 bg-transparent">
-                <NotificationsIcon className="w-5 h-5 text-white bg-indigo-600 rounded-full p-1" />
+                <NotificationsIcon className="w-5 h-5 text-white bg-navy-600 rounded-full p-1" />
                 <span className="text-body text-md text-default-500">{item.title}</span>
               </Button>
             ))}
@@ -170,8 +170,8 @@ export const Navbar = () => {
   );
 
   return (
-    <NextUINavbar maxWidth="xl" position="sticky" className="border-b-2">
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+    <NextUINavbar maxWidth="2xl" position="sticky" className="border-b-2">
+      <NavbarContent className="basis-1/5 sm:basis-full max-w-8xl" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-0" href="/">
             <Logo />
@@ -208,14 +208,14 @@ export const Navbar = () => {
         </NavbarItem>
         <NavbarItem className="cursor-pointer hidden lg:flex">
           <Link className="bg-transparent">
-            <MessagesIcon className="text-indigo-600 w-8 h-8" />
+            <MessagesIcon className="text-navy-500 w-8 h-8" />
           </Link>
         </NavbarItem>
         <NavbarItem className="cursor-pointer hidden lg:flex">
           <Popover triggerScaleOnOpen={false} placement="bottom">
             <PopoverTrigger>
               <Link className="bg-transparent">
-                <NotificationsIcon className="text-indigo-600 w-8 h-8" />
+                <NotificationsIcon className="text-navy-500 w-8 h-8" />
               </Link>
             </PopoverTrigger>
             {notificationsPopoverContent}
@@ -232,7 +232,7 @@ export const Navbar = () => {
                 }}
               />
             </PopoverTrigger>
-            {popoverContent}
+            {userPopoverContent}
           </Popover>
         </NavbarItem>
         {/* <NavbarItem className="hidden md:flex">
