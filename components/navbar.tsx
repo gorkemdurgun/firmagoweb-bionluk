@@ -369,7 +369,7 @@ export const Navbar = () => {
   return (
     <NextUINavbar maxWidth="xl" position="sticky" className="py-6">
       <div className="flex flex-col items-center w-full gap-2 ">
-        <NavbarContent className="basis-1/5 sm:basis-full w-full">
+        <NavbarContent className="basis-1/5 sm:basis-full w-full mt-4">
           <NavbarContent className="basis-1/5 sm:basis-full max-w-7xl" justify="start">
             <NavbarBrand as="li" className="gap-3 max-w-fit">
               <NextLink className="flex justify-start items-center gap-0" href="/">
@@ -493,7 +493,7 @@ export const Navbar = () => {
           <NavbarMenuItem className="w-full bg-navy-700/10 rounded-xl pt-4 pb-2 pl-4 my-2">
             <User
               classNames={{
-                name: "text-body text-black",
+                name: "text-body text-navy-900",
                 description: "text-body text-navy-500",
               }}
               name="Orkun Akbaş"
