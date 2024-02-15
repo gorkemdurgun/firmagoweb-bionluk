@@ -375,8 +375,10 @@ export default function Home() {
 
   return (
     <section
-      className="flex flex-col items-center justify-center md:gap-12 gap-4
-     md:py-8 py-0"
+      className="
+      w-full max-w-7xl
+      flex flex-col items-center justify-center md:gap-12 gap-4
+     md:py-8 py-4 md:px-8 px-4"
     >
       {/* Launch Section */}
       <motion.div
