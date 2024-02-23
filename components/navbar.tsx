@@ -443,8 +443,10 @@ export const Navbar = () => {
           <div className="w-full whitespace-nowrap md:grid flex md:grid-cols-7 flex-row md:gap-2 gap-4 overflow-scroll scrollbar-hide">
             {dummyCategories.map((category, index) => (
               <Tooltip
+                delay={0}
+                closeDelay={0}
                 key={index}
-                className="shadow-xl border-2 border-t-0 rounded-none rounded-b-xl md:flex hidden"
+                className="shadow-xl border-1 border-t-0 rounded-none rounded-b-xl md:flex hidden"
                 offset={9}
                 content={
                   <div className="grid grid-cols-2 gap-x-8 gap-y-4 p-4">

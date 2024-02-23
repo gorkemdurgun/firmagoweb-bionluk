@@ -376,13 +376,13 @@ export default function Home() {
   return (
     <section
       className="
-      w-full max-w-7xl
+      w-full
       flex flex-col items-center justify-center md:gap-12 gap-4
-     md:py-8 py-4 md:px-8 px-4"
+     md:py-8 py-4 md:px-8 px-4 bg-gradient-to-b from-white via-navy-100/20 to-white"
     >
       {/* Launch Section */}
       <motion.div
-        className="grid w-full gap-8 rounded-xl bg-navy-700 md:px-8  md:grid-cols-[3fr,2fr] grid-cols-1 md:py-16 py-12 md:px-6 px-6"
+        className="max-w-7xl grid w-full gap-8 rounded-xl bg-navy-700 md:px-8  md:grid-cols-[3fr,2fr] grid-cols-1 md:py-16 py-12 md:px-6 px-6"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
@@ -445,7 +445,7 @@ export default function Home() {
         </div>
       </motion.div>
       {/* We Have Your Needs Section */}
-      <div className="flex flex-col w-full align-center justify-center md:gap-8 gap-4 md:py-10 py-8">
+      <div className="max-w-7xl flex flex-col w-full align-center justify-center md:gap-8 gap-4 md:py-10 py-8">
         <span className="flex items-center justify-start gap-4 font-bold text-gray-900">
           <span className="text-body uppercase text-gray-900 md:text-3xl text-xl">İHTİYACIN BİZDE VAR</span>
           <ArrowRightIcon className="text-gray-900 w-8 h-8" />
@@ -454,7 +454,7 @@ export default function Home() {
           {dummyNeeds.map((need, index) => (
             <div
               key={index}
-              className="cursor-pointer grid grid-rows-2 justify-start min-h-[120px] p-4 border-2 border-gray-100 shadow-lg rounded-xl transition-all hover:scale-105 hover:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-400/10 from-55% via-white to-white"
+              className="cursor-pointer grid grid-rows-2 justify-start min-h-[120px] p-4 border-2 border-gray-100 shadow-lg rounded-xl transition-all bg-white hover:scale-105 hover:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-400/10 from-55% via-white to-white"
             >
               <TemporaryNeedIcon className="text-4xl text-gray-600 -ml-2 pb-2 border-b-1" />
               <span className="text-body text-lg font-bold text-gray-600">{need}</span>
@@ -469,7 +469,10 @@ export default function Home() {
         </div>
       </div>
       {/* Trust Our Community Section */}
-      <Card className="flex flex-col w-full align-center justify-center gap-4 bg-gray-100 shadow-inner md:py-10 md:p-8 p-4 " shadow="none">
+      <Card
+        className="max-w-7xl flex flex-col w-full align-center justify-center gap-4 bg-white shadow-inner md:py-10 md:p-8 p-4 "
+        shadow="none"
+      >
         <span className="flex items-center mb-8 gap-4 text-4xl font-bold text-gray-900 md:justify-start justify-between">
           <span className="text-body uppercase text-gray-900 md:text-3xl text-lg">GÜVENİLİR TOPLULUĞUMUZ</span>
           <VerifiedIcon className="text-navy-400 bg-navy-100 p-2 rounded-full md:w-12 w-8 md:h-12 h-8" />
@@ -533,7 +536,7 @@ export default function Home() {
       {/* Roadmap Section */}
       <div></div>
       {/* For Business Section */}
-      <Card className="grid grid-cols-1 p-8 gap-8 w-full bg-navy-700 md:grid-cols-2">
+      <Card className="max-w-7xl grid grid-cols-1 p-8 gap-8 w-full bg-navy-700 md:grid-cols-2">
         <div className="flex flex-col items-start justify-center md:gap-12 gap-8">
           <span className="text-body font-medium text-white max-w-[500px] md:text-4xl text-2xl">
             İşletmeler için gelişmiş çözümler ve hizmetler
@@ -556,7 +559,7 @@ export default function Home() {
         </div>
       </Card>
       {/* Blogs Section */}
-      <div className="relative flex flex-col w-full align-center justify-center gap-8 py-8 md:py-10">
+      <div className="max-w-7xl relative flex flex-col w-full align-center justify-center gap-8 py-8 md:py-10">
         <span className="flex items-center justify-start gap-4 text-4xl font-bold text-gray-900 md:pl-8">
           <span className="text-body uppercase text-gray-900 md:text-3xl text-xl">BLOG</span>
           <ArrowRightIcon className="text-gray-900 w-8 h-8" />
