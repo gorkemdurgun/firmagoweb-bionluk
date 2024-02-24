@@ -464,7 +464,7 @@ export const Navbar = () => {
             {dummyCategories.map((category, index) => (
               <Tooltip
                 delay={0}
-                closeDelay={0}
+                closeDelay={300}
                 key={index}
                 className="shadow-xl border-1 border-t-0 rounded-none rounded-b-xl md:flex hidden"
                 offset={9}
