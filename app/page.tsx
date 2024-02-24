@@ -481,7 +481,7 @@ export default function Home() {
         <motion.div
           className="flex flex-row items-center justify-center md:gap-8 gap-4"
           style={{
-            x: useTransform(scrollYProgress, [0, 2], [window.innerWidth, -window.innerWidth * 3]),
+            x: useTransform(scrollYProgress, [0, 2], ["100%", "-240%"]),
           }}
         >
           {dummyTestimonials.slice(0, 6).map((testimonial, index) => (
@@ -500,7 +500,7 @@ export default function Home() {
                       <StarIcon key={index} className=" text-yellow-400 md:text-2xl text-lg" />
                     ))}
                 </span>
-                <span className="text-body font-normal text-gray-900 md:text-start text-center md:text-md text-[10px]">
+                <span className="text-body font-normal text-gray-900 md:text-start text-center md:text-[14px] text-[10px]">
                   {testimonial.message}
                 </span>
               </div>
@@ -510,7 +510,7 @@ export default function Home() {
         <motion.div
           className="flex flex-row items-center justify-center md:gap-8 gap-4"
           style={{
-            x: useTransform(scrollYProgress, [0, 2], [-window.innerWidth, window.innerWidth * 3]),
+            x: useTransform(scrollYProgress, [0, 2], ["-100%", "240%"]),
           }}
         >
           {dummyTestimonials.slice(6, 12).map((testimonial, index) => (
@@ -529,7 +529,7 @@ export default function Home() {
                       <StarIcon key={index} className=" text-yellow-400 md:text-2xl text-lg" />
                     ))}
                 </span>
-                <span className="text-body font-normal text-gray-900 md:text-start text-center md:text-md text-[10px]">
+                <span className="text-body font-normal text-gray-900 md:text-start text-center md:text-[14px] text-[10px]">
                   {testimonial.message}
                 </span>
               </div>
