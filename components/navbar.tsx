@@ -25,6 +25,9 @@ import { TwitterIcon, GithubIcon, DiscordIcon, HeartFilledIcon, SearchIcon } fro
 
 import { Logo } from "@/components/icons";
 import {
+  Accordion,
+  AccordionItem,
+  Avatar,
   Divider,
   Dropdown,
   DropdownItem,
@@ -49,6 +52,9 @@ import {
   MdOutlineDiamond as PlansIcon,
   MdOutlineStarOutline as ReviewsIcon,
   MdOutlineLogout as LogoutIcon,
+  MdMenu as MenuOpenIcon,
+  MdClose as MenuCloseIcon,
+  MdOutlineMenu as MatterIcon,
 } from "react-icons/md";
 
 const userDropdownList = [
@@ -315,12 +321,12 @@ export const Navbar = () => {
     <Input
       aria-label="Search"
       classNames={{
-        inputWrapper: "bg-default-100 w-[300px] lg:w-[400px] rounded-full",
-        input: "text-sm",
+        inputWrapper: "bg-default-100 w-full rounded-lg",
+        input: "text-sm text-default-500",
       }}
       labelPlacement="outside"
-      placeholder="Search..."
-      startContent={<SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />}
+      placeholder="Ne aramıştınız?"
+      startContent={<SearchIcon className="text-base text-default-500 pointer-events-none flex-shrink-0" />}
       type="search"
     />
   );
@@ -370,18 +376,26 @@ export const Navbar = () => {
     <NextUINavbar maxWidth="xl" position="sticky" className="py-6">
       <div className="flex flex-col items-center w-full gap-2 ">
         <NavbarContent className="basis-1/5 sm:basis-full w-full mt-4">
-          <NavbarContent className="basis-1/5 sm:basis-full max-w-7xl" justify="start">
-            <NavbarBrand as="li" className="gap-3 max-w-fit">
+          <NavbarContent className="basis-1/5 sm:basis-full max-w-7xl w-full justify-between md:flex-row flex-row-reverse">
+            <NavbarContent className="items-center sm:hidden flex" justify="end">
+              <Avatar src="https://i.pravatar.cc/150?u=orkun" />
+            </NavbarContent>
+            <NavbarBrand className="flex-grow-0">
               <NextLink className="flex justify-start items-center gap-0" href="/">
                 <Logo />
-                <p className="text-2xl font-bold text-inherit">FİRMAGO</p>
+                <p className="font-bold text-inherit text-2xl md:flex hidden">FİRMAGO</p>
               </NextLink>
             </NavbarBrand>
-            <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-              <NavbarMenuToggle />
+            <NavbarContent className="sm:hidden">
+              <NavbarMenuToggle
+                className="w-8 h-8"
+                icon={(isOpen) =>
+                  isOpen ? <MenuCloseIcon className="text-gray-800 w-8 h-8" /> : <MenuOpenIcon className="text-navy-800 w-8 h-8" />
+                }
+              />
             </NavbarContent>
           </NavbarContent>
-          <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
+          <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full">
             <NavbarItem className="hidden lg:flex lg:-mr-4">{searchInput}</NavbarItem>
             <NavbarItem className="cursor-pointer hidden lg:flex lg:-mr-4">
               <Button className="flex items-center gap-1 bg-transparent">
@@ -439,7 +453,8 @@ export const Navbar = () => {
           </NavbarContent>
         </NavbarContent>
         <Divider className="w-[100vw] bg-gray-200 md:flex hidden" />
-        <NavbarContent className="basis-1/5 sm:basis-full w-full">
+        <NavbarContent className="basis-1/5 sm:basis-full w-full my-2 sm:hidden flex">{searchInput}</NavbarContent>
+        <NavbarContent className="basis-1/5 sm:basis-full w-full sm:flex hidden">
           <div className="w-full whitespace-nowrap md:grid flex md:grid-cols-7 flex-row md:gap-2 gap-4 overflow-scroll scrollbar-hide">
             {dummyCategories.map((category, index) => (
               <Tooltip
@@ -482,7 +497,14 @@ export const Navbar = () => {
         <Divider className="w-[100vw] bg-gray-200 md:flex hidden" />
       </div>
 
-      <NavbarMenu className="px-4">
+      <NavbarMenu
+        motionProps={{
+          initial: { left: "-100%" },
+          animate: { left: 0 },
+          exit: { left: "-100%" },
+        }}
+        className="px-0 py-4 w-full h-full sm:hidden"
+      >
         {/* {searchInput} */}
         <div className="mx-4 mt-12 flex flex-col items-start gap-2">
           {/* {siteConfig.navMenuItems.map((item, index) => (
@@ -492,58 +514,43 @@ export const Navbar = () => {
               </Link>
             </NavbarMenuItem>
           ))} */}
-          <NavbarMenuItem className="w-full bg-navy-700/10 rounded-xl pt-4 pb-2 pl-4 my-2">
+          <NavbarMenuItem className="w-full bg-navy-700 rounded-xl pt-4 pb-2 pl-4 my-2">
             <User
               classNames={{
-                name: "text-body text-navy-900",
-                description: "text-body text-navy-500",
+                name: "text-body text-white",
+                description: "text-body text-navy-100",
               }}
               name="Orkun Akbaş"
               description="Software Developer"
               avatarProps={{ src: "https://i.pravatar.cc/150?u=orkun" }}
             />
           </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Link color="foreground" href="#" size="lg">
-              Home
-            </Link>
-          </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Link color="foreground" href="#" size="lg">
-              About
-            </Link>
-          </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Link color="foreground" href="#" size="lg">
-              Services
-            </Link>
-          </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Link color="foreground" href="#" size="lg">
-              Contact
-            </Link>
-          </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Link color="foreground" href="#" size="lg">
-              Blog
-            </Link>
-          </NavbarMenuItem>
-
-          <NavbarMenuItem>
-            <Link color="primary" href="#" size="lg">
-              Sign In
-            </Link>
-          </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Link color="primary" href="#" size="lg">
-              Sign Up
-            </Link>
-          </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Link color="danger" href="#" size="lg">
-              Sign Out
-            </Link>
-          </NavbarMenuItem>
+          <span className="text-body text-gray-900 border-b-1 border-gray-400 w-full my-2 pb-2">Kategoriler</span>
+          {dummyCategories.map((category, index) => (
+            <NavbarMenuItem key={index} className="w-full">
+              <Accordion className="w-full bg-white rounded-md shadow-sm">
+                <AccordionItem
+                  title={category.label}
+                  className="w-full px-2 "
+                  classNames={{
+                    title: "text-body text-[16px] text-black",
+                  }}
+                >
+                  <div className="grid grid-cols-2 gap-2 px-0 pb-4">
+                    {category.items.map((item, index) => (
+                      <NextLink
+                        key={index}
+                        href={item.href}
+                        className="flex justify-center items-center text-center leading-tight text-body text-sm text-black font-medium  p-2 shadow-md rounded-sm"
+                      >
+                        {item.label}
+                      </NextLink>
+                    ))}
+                  </div>
+                </AccordionItem>
+              </Accordion>
+            </NavbarMenuItem>
+          ))}
         </div>
       </NavbarMenu>
     </NextUINavbar>
