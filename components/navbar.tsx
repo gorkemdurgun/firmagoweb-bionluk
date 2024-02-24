@@ -321,7 +321,7 @@ export const Navbar = () => {
     <Input
       aria-label="Search"
       classNames={{
-        inputWrapper: "bg-default-100 w-full rounded-lg",
+        inputWrapper: "bg-default-100 w-full rounded-lg sm:hidden flex",
         input: "text-sm text-default-500",
       }}
       labelPlacement="outside"
