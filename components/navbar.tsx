@@ -33,6 +33,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  MergeWithAs,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -55,7 +56,10 @@ import {
   MdMenu as MenuOpenIcon,
   MdClose as MenuCloseIcon,
   MdOutlineMenu as MatterIcon,
+  MdArrowForwardIos as ArrowRightIcon,
+  MdArrowBackIos as ArrowLeftIcon,
 } from "react-icons/md";
+import { DetailedHTMLProps, HTMLAttributes, useEffect, useRef, useState } from "react";
 
 const userDropdownList = [
   {
@@ -333,13 +337,13 @@ export const Navbar = () => {
   const userPopoverContent = (
     <PopoverContent className="w-[300px] p-0">
       {(titleProps) => (
-        <div className="py-8 w-full">
+        <div className="md:py-8 py-6 w-full">
           <p className="px-4 text-small font-bold text-navy-500" {...titleProps}>
             Merhaba, Orkun
           </p>
           <p className="px-4 text-small text-default-500">orwysoftware@gmail.com</p>
           <Divider className="bg-navy-500 my-4" />
-          <div className="px-4 mt-2 flex flex-col gap-0 w-full">
+          <div className="md:px-4 px-0 mt-2 flex flex-col gap-0 w-full">
             {userDropdownList.map((item, index) => (
               <Button key={index} className="flex items-center justify-start gap-2 bg-transparent">
                 <item.icon className="w-5 h-5 text-default-500" />
@@ -372,13 +376,20 @@ export const Navbar = () => {
     </PopoverContent>
   );
 
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
   return (
-    <NextUINavbar maxWidth="xl" position="sticky" className="py-6">
+    <NextUINavbar maxWidth="xl" position="sticky" className="md:py-6 py-0">
       <div className="flex flex-col items-center w-full gap-2 ">
-        <NavbarContent className="basis-1/5 sm:basis-full w-full mt-4">
+        <NavbarContent className="basis-1/5 sm:basis-full w-full md:mt-4 mt-0">
           <NavbarContent className="basis-1/5 sm:basis-full max-w-7xl w-full justify-between md:flex-row flex-row-reverse">
             <NavbarContent className="items-center sm:hidden flex" justify="end">
-              <Avatar src="https://i.pravatar.cc/150?u=orkun" />
+              <Popover triggerScaleOnOpen={false} placement="bottom">
+                <PopoverTrigger>
+                  <Avatar src="https://i.pravatar.cc/150?u=orkun" />
+                </PopoverTrigger>
+                {userPopoverContent}
+              </Popover>
             </NavbarContent>
             <NavbarBrand className="flex-grow-0">
               <NextLink className="flex justify-start items-center gap-0" href="/">
@@ -387,12 +398,7 @@ export const Navbar = () => {
               </NextLink>
             </NavbarBrand>
             <NavbarContent className="sm:hidden">
-              <NavbarMenuToggle
-                className="w-8 h-8"
-                icon={(isOpen) =>
-                  isOpen ? <MenuCloseIcon className="text-gray-800 w-8 h-8" /> : <MenuOpenIcon className="text-navy-800 w-8 h-8" />
-                }
-              />
+              <NavbarMenuToggle className="w-8 h-8 !z-50" icon={(isOpen) => <MenuOpenIcon className="text-navy-800 w-8 h-8" />} />
             </NavbarContent>
           </NavbarContent>
           <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full">
@@ -453,7 +459,6 @@ export const Navbar = () => {
           </NavbarContent>
         </NavbarContent>
         <Divider className="w-[100vw] bg-gray-200 md:flex hidden" />
-        <NavbarContent className="basis-1/5 sm:basis-full w-full my-2 sm:hidden flex">{searchInput}</NavbarContent>
         <NavbarContent className="basis-1/5 sm:basis-full w-full sm:flex hidden">
           <div className="w-full whitespace-nowrap md:grid flex md:grid-cols-7 flex-row md:gap-2 gap-4 overflow-scroll scrollbar-hide">
             {dummyCategories.map((category, index) => (
@@ -498,15 +503,15 @@ export const Navbar = () => {
       </div>
 
       <NavbarMenu
+        className="px-0 py-0 w-full h-full -mt-16 max-w-[80%] bg-white shadow-xl z-50 sm:hidden"
         motionProps={{
           initial: { left: "-100%" },
-          animate: { left: 0 },
+          animate: { left: "0%" },
           exit: { left: "-100%" },
         }}
-        className="px-0 py-4 w-full h-full sm:hidden"
       >
         {/* {searchInput} */}
-        <div className="mx-4 mt-12 flex flex-col items-start gap-2">
+        <div className="flex flex-col items-start gap-4">
           {/* {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link color={index === 2 ? "primary" : index === siteConfig.navMenuItems.length - 1 ? "danger" : "foreground"} href="#" size="lg">
@@ -514,43 +519,48 @@ export const Navbar = () => {
               </Link>
             </NavbarMenuItem>
           ))} */}
-          <NavbarMenuItem className="w-full bg-navy-700 rounded-xl pt-4 pb-2 pl-4 my-2">
-            <User
-              classNames={{
-                name: "text-body text-white",
-                description: "text-body text-navy-100",
-              }}
-              name="Orkun Akbaş"
-              description="Software Developer"
-              avatarProps={{ src: "https://i.pravatar.cc/150?u=orkun" }}
-            />
-          </NavbarMenuItem>
-          <span className="text-body text-gray-900 border-b-1 border-gray-400 w-full my-2 pb-2">Kategoriler</span>
-          {dummyCategories.map((category, index) => (
-            <NavbarMenuItem key={index} className="w-full">
-              <Accordion className="w-full bg-white rounded-md shadow-sm">
-                <AccordionItem
-                  title={category.label}
-                  className="w-full px-2 "
-                  classNames={{
-                    title: "text-body text-[16px] text-black",
-                  }}
+          <div className="flex flex-row items-center justify-between w-full bg-navy-800 py-6 pl-2 pr-3">
+            <NextLink className="flex justify-start items-center gap-2" href="/">
+              <Logo width={32} height={32} fill="white" />
+              <p className="text-body font-bold text-white text-xl  ">FİRMAGO</p>
+            </NextLink>
+            <NavbarMenuToggle className="w-8 h-8" icon={(isOpen) => <MenuCloseIcon className="text-gray-300 w-8 h-8" />} />
+          </div>
+          {!selectedCategory &&
+            dummyCategories.map((category, index) => (
+              <NavbarMenuItem key={index} className="w-full">
+                <Button
+                  className="flex justify-between w-full text-default-700 bg-white border-b-1 pl-4 pb-2 rounded-none hover:text-default-900"
+                  onClick={() => setSelectedCategory(category.label)}
                 >
-                  <div className="grid grid-cols-2 gap-2 px-0 pb-4">
-                    {category.items.map((item, index) => (
-                      <NextLink
-                        key={index}
-                        href={item.href}
-                        className="flex justify-center items-center text-center leading-tight text-body text-sm text-black font-medium  p-2 shadow-md rounded-sm"
-                      >
-                        {item.label}
-                      </NextLink>
-                    ))}
-                  </div>
-                </AccordionItem>
-              </Accordion>
-            </NavbarMenuItem>
-          ))}
+                  <span className="text-body text-default-600 text-md font-bold">{category.label}</span>
+                  <ArrowRightIcon className="w-5 h-5 text-default-700" />
+                </Button>
+              </NavbarMenuItem>
+            ))}
+          {selectedCategory && (
+            <div className="flex flex-col items-start gap-4 w-full">
+              <Button
+                className="flex justify-between w-full text-default-700 bg-white rounded-none hover:text-default-900"
+                onClick={() => setSelectedCategory(null)}
+              >
+                <ArrowLeftIcon className="w-5 h-5 text-default-700" />
+              </Button>
+              <div className="grid grid-cols-1 gap-x-8 gap-y-4 w-full">
+                {dummyCategories
+                  .find((category) => category.label === selectedCategory)
+                  ?.items.map((item, index) => (
+                    <NextLink
+                      key={index}
+                      href={item.href}
+                      className="text-body text-default-600 text-sm border-b-1 pl-4 pr-2 py-2 w-full hover:text-default-900"
+                    >
+                      <span className="font-bold text-body text-md ">{item.label}</span>
+                    </NextLink>
+                  ))}
+              </div>
+            </div>
+          )}
         </div>
       </NavbarMenu>
     </NextUINavbar>

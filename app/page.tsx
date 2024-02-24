@@ -375,75 +375,77 @@ export default function Home() {
 
   return (
     <section
-      className="
+      className="position-relative
       w-full
       flex flex-col items-center justify-center md:gap-12 gap-4
-     md:py-8 py-4 md:px-8 px-4 bg-gradient-to-b from-white via-navy-100/20 to-white"
+     md:py-8 py-4 md:px-0 px-4 bg-gradient-to-b from-white via-navy-100/20 to-white"
     >
       {/* Launch Section */}
-      <motion.div
-        className="max-w-7xl grid w-full gap-8 rounded-xl bg-navy-700 md:px-8  md:grid-cols-[3fr,2fr] grid-cols-1 md:py-16 py-12 md:px-6 px-6"
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{
-          duration: 0.5,
-          type: "spring",
-          stiffness: 150,
-          damping: 10,
-        }}
-      >
-        <div className="flex flex-col items-start justify-center gap-0">
-          {/* Title and Description */}
-          <h1 className="font-bold text-white md:text-4xl text-xl">Binlerce firma arasından seçin!</h1>
-          <p className="font-normal text-white md:text-xl text-sm">Aradığın bizde yoksa hiçbir yerde yoktur</p>
-          {/* Search Inputs */}
-          <div className="grid items-center gap-4 mt-8 mb-12 w-full md:grid-cols-[2fr,2fr,1fr] grid-cols-1">
-            <Autocomplete
-              ref={serviceSearchRef}
-              className="max-w-xs"
-              placeholder="Ne aramıştınız?"
-              startContent={<SearchIcon className="text-gray-500 w-8 h-8" />}
-              defaultItems={dummyServices}
-              inputValue={searchService}
-              onInputChange={(value) => setSearchService(value)}
-              clearButtonProps={{ onClick: () => setSearchService("") }}
-            >
-              {(service) => <AutocompleteItem key={service.id}>{service.name}</AutocompleteItem>}
-            </Autocomplete>
-            <Autocomplete
-              className="max-w-xs"
-              placeholder="Nerede aramıştınız?"
-              startContent={<LocationIcon className="text-gray-500 w-8 h-8" />}
-              defaultItems={dummyLocations}
-            >
-              {(location) => <AutocompleteItem key={location.id}>{location.name}</AutocompleteItem>}
-            </Autocomplete>
-            <Button className="h-full p-4 bg-navy-100">
-              <span className="text-lg text-body text-black font-bold">Ara</span>
-            </Button>
-          </div>
-          {/* Popular Searches */}
-          <div className="flex flex-wrap items-center justify-start gap-4">
-            <span className="text-lg text-body font-bold text-white">Popüler Aramalar</span>
-            {dummyPopularSearches.map((search, index) => (
-              <Button
-                key={index}
-                className="bg-navy-100/20 border-2 border-transparent hover:scale-105 hover:border-navy-100"
-                onClick={() => {
-                  setSearchService(search);
-                  // @ts-ignore
-                  serviceSearchRef?.current?.focus();
-                }}
+      <div className="position-static flex justify-center w-full bg-navy-700 md:rounded-none rounded-xl">
+        <motion.div
+          className="max-w-7xl grid w-full  gap-8  md:px-8  md:grid-cols-[3fr,2fr] grid-cols-1 md:py-16 py-12 md:px-6 px-6"
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{
+            duration: 0.5,
+            type: "spring",
+            stiffness: 150,
+            damping: 10,
+          }}
+        >
+          <div className="flex flex-col items-start justify-center gap-0">
+            {/* Title and Description */}
+            <h1 className="font-bold text-white md:text-4xl text-xl">Binlerce firma arasından seçin!</h1>
+            <p className="font-normal text-white md:text-xl text-sm">Aradığın bizde yoksa hiçbir yerde yoktur</p>
+            {/* Search Inputs */}
+            <div className="grid items-center gap-4 mt-8 mb-12 w-full md:grid-cols-[2fr,2fr,1fr] grid-cols-1">
+              <Autocomplete
+                ref={serviceSearchRef}
+                className="w-full"
+                placeholder="Ne aramıştınız?"
+                startContent={<SearchIcon className="text-gray-500 w-8 h-8" />}
+                defaultItems={dummyServices}
+                inputValue={searchService}
+                onInputChange={(value) => setSearchService(value)}
+                clearButtonProps={{ onClick: () => setSearchService("") }}
               >
-                <span className="text-body text-sm text-white">{search}</span>
+                {(service) => <AutocompleteItem key={service.id}>{service.name}</AutocompleteItem>}
+              </Autocomplete>
+              <Autocomplete
+                className="w-full"
+                placeholder="Nerede aramıştınız?"
+                startContent={<LocationIcon className="text-gray-500 w-8 h-8" />}
+                defaultItems={dummyLocations}
+              >
+                {(location) => <AutocompleteItem key={location.id}>{location.name}</AutocompleteItem>}
+              </Autocomplete>
+              <Button className="h-full p-4 bg-navy-100">
+                <span className="text-lg text-body text-black font-bold">Ara</span>
               </Button>
-            ))}
+            </div>
+            {/* Popular Searches */}
+            <div className="flex flex-wrap items-center justify-start gap-4">
+              <span className="text-lg text-body font-bold text-white">Popüler Aramalar</span>
+              {dummyPopularSearches.map((search, index) => (
+                <Button
+                  key={index}
+                  className="bg-navy-100/20 border-2 border-transparent hover:scale-105 hover:border-navy-100"
+                  onClick={() => {
+                    setSearchService(search);
+                    // @ts-ignore
+                    serviceSearchRef?.current?.focus();
+                  }}
+                >
+                  <span className="text-body text-sm text-white">{search}</span>
+                </Button>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="items-center justify-center w-full md:flex hidden">
-          <img src="https://placehold.co/150x100" alt="NextUI" className="w-32 h-32 md:w-full md:h-full" />
-        </div>
-      </motion.div>
+          <div className="items-center justify-center w-full md:flex hidden">
+            <img src="https://placehold.co/150x100" alt="NextUI" className="w-32 h-32 md:w-full md:h-full" />
+          </div>
+        </motion.div>
+      </div>
       {/* We Have Your Needs Section */}
       <div className="max-w-7xl flex flex-col w-full align-center justify-center md:gap-8 gap-4 md:py-10 py-8">
         <span className="flex items-center justify-start gap-4 font-bold text-gray-900">
