@@ -479,20 +479,20 @@ export default function Home() {
         </span>
         {/* // scrolled testimonials by scrollYProgress, half of comments in top and rightly animated, other half in bottom and leftly animated */}
         <motion.div
-          className="flex flex-row items-center justify-center md:gap-12 gap-4"
+          className="flex flex-row items-center justify-center md:gap-8 gap-4"
           style={{
-            x: useTransform(scrollYProgress, [0, 2], ["-100%", "100%"]),
+            x: useTransform(scrollYProgress, [0, 2], [window.innerWidth, -window.innerWidth * 3]),
           }}
         >
           {dummyTestimonials.slice(0, 6).map((testimonial, index) => (
             <Card
               key={index}
-              className=" flex flex-row items-center justify-center gap-4 p-4 rounded-xl shadow-md bg-transparent rounded-3xl border-4 border-navy-500 md:min-w-[600px] min-w-[360px]"
+              className="flex md:flex-row flex-col items-center justify-center gap-4 p-4 rounded-xl shadow-md bg-transparent rounded-3xl border-4 border-navy-500 bg-white md:min-w-[600px] min-w-[180px]"
             >
-              <img src={testimonial.image} alt="NextUI" className="w-24 h-24 rounded-md" />
+              <img src={testimonial.image} alt="NextUI" className="md:w-24 md:h-24 h-12 w-12 rounded-md" />
               {/* <span className="text-lg text-body font-bold text-gray-900">{testimonial.name}</span> */}
               {/* <span className="text-lg text-body font-normal text-gray-900">{testimonial.title}</span> */}
-              <div className="flex flex-col items-start justify-start gap-2">
+              <div className="flex flex-col md:items-start items-center justify-start gap-2">
                 <span className="flex flex-row items-center justify-start gap-0">
                   {Array(5)
                     .fill(0)
@@ -500,26 +500,28 @@ export default function Home() {
                       <StarIcon key={index} className=" text-yellow-400 md:text-2xl text-lg" />
                     ))}
                 </span>
-                <span className="text-body font-normal text-gray-900 md:text-md text-xs">{testimonial.message}</span>
+                <span className="text-body font-normal text-gray-900 md:text-start text-center md:text-md text-[10px]">
+                  {testimonial.message}
+                </span>
               </div>
             </Card>
           ))}
         </motion.div>
         <motion.div
-          className="flex flex-row items-center justify-center md:gap-12 gap-4"
+          className="flex flex-row items-center justify-center md:gap-8 gap-4"
           style={{
-            x: useTransform(scrollYProgress, [0, 2], ["100%", "-100%"]),
+            x: useTransform(scrollYProgress, [0, 2], [-window.innerWidth, window.innerWidth * 3]),
           }}
         >
           {dummyTestimonials.slice(6, 12).map((testimonial, index) => (
             <Card
               key={index}
-              className=" flex flex-row items-center justify-center gap-4 p-4 rounded-xl shadow-md bg-transparent rounded-3xl border-4 border-navy-500 md:min-w-[600px] min-w-[360px]"
+              className="flex md:flex-row flex-col items-center justify-center gap-4 p-4 rounded-xl shadow-md bg-transparent rounded-3xl border-4 border-navy-500 bg-white md:min-w-[600px] min-w-[180px]"
             >
-              <img src={testimonial.image} alt="NextUI" className="w-24 h-24 rounded-md" />
+              <img src={testimonial.image} alt="NextUI" className="md:w-24 md:h-24 h-12 w-12 rounded-md" />
               {/* <span className="text-lg text-body font-bold text-gray-900">{testimonial.name}</span> */}
               {/* <span className="text-lg text-body font-normal text-gray-900">{testimonial.title}</span> */}
-              <div className="flex flex-col items-start justify-start gap-2">
+              <div className="flex flex-col md:items-start items-center justify-start gap-2">
                 <span className="flex flex-row items-center justify-start gap-0">
                   {Array(5)
                     .fill(0)
@@ -527,7 +529,9 @@ export default function Home() {
                       <StarIcon key={index} className=" text-yellow-400 md:text-2xl text-lg" />
                     ))}
                 </span>
-                <span className=" text-body font-normal text-gray-900 md:text-md text-xs">{testimonial.message}</span>
+                <span className="text-body font-normal text-gray-900 md:text-start text-center md:text-md text-[10px]">
+                  {testimonial.message}
+                </span>
               </div>
             </Card>
           ))}
